@@ -1,32 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { HousingLocationComponent } from '../housing-location/housing-location.component';
+import { Injectable } from '@angular/core';
 import { HousingLocation } from '../types/housinglocation';
 
-@Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, HousingLocationComponent],
-  template: `
-    <section>
-      <form>
-        <input type="text" placeholder="Filter by city" />
-        <button class="primary" type="button">Search</button>
-      </form>
-    </section>
-    <section class="results">
-      <app-housing-location
-      *ngFor="let housingLocation of housingLocationList"
-        [housingLocation]="housingLocation"
-      ></app-housing-location>
-    </section>
-  `,
-  styleUrl: './home.component.scss',
+@Injectable({
+  providedIn: 'root',
 })
-export class HomeComponent {
+export class HousingService {
   readonly baseUrl = 'https://angular.io/assets/images/tutorials/faa';
 
-housingLocationList: HousingLocation[] = [
+  housingLocationList: HousingLocation[] = [
     {
       id: 0,
       name: 'Acme Fresh Start Housing',
@@ -35,7 +16,7 @@ housingLocationList: HousingLocation[] = [
       photo: `${this.baseUrl}/bernard-hermant-CLKGGwIBTaY-unsplash.jpg`,
       availableUnits: 4,
       wifi: true,
-      laundry: true
+      laundry: true,
     },
     {
       id: 1,
@@ -45,7 +26,7 @@ housingLocationList: HousingLocation[] = [
       photo: `${this.baseUrl}/brandon-griggs-wR11KBaB86U-unsplash.jpg`,
       availableUnits: 0,
       wifi: false,
-      laundry: true
+      laundry: true,
     },
     {
       id: 2,
@@ -55,7 +36,7 @@ housingLocationList: HousingLocation[] = [
       photo: `${this.baseUrl}/i-do-nothing-but-love-lAyXdl1-Wmc-unsplash.jpg`,
       availableUnits: 1,
       wifi: false,
-      laundry: false
+      laundry: false,
     },
     {
       id: 3,
@@ -65,7 +46,7 @@ housingLocationList: HousingLocation[] = [
       photo: `${this.baseUrl}/ian-macdonald-W8z6aiwfi1E-unsplash.jpg`,
       availableUnits: 1,
       wifi: true,
-      laundry: false
+      laundry: false,
     },
     {
       id: 4,
@@ -75,7 +56,7 @@ housingLocationList: HousingLocation[] = [
       photo: `${this.baseUrl}/krzysztof-hepner-978RAXoXnH4-unsplash.jpg`,
       availableUnits: 1,
       wifi: true,
-      laundry: false
+      laundry: false,
     },
     {
       id: 5,
@@ -85,7 +66,7 @@ housingLocationList: HousingLocation[] = [
       photo: `${this.baseUrl}/r-architecture-JvQ0Q5IkeMM-unsplash.jpg`,
       availableUnits: 2,
       wifi: true,
-      laundry: true
+      laundry: true,
     },
     {
       id: 6,
@@ -95,7 +76,7 @@ housingLocationList: HousingLocation[] = [
       photo: `${this.baseUrl}/phil-hearing-IYfp2Ixe9nM-unsplash.jpg`,
       availableUnits: 5,
       wifi: true,
-      laundry: true
+      laundry: true,
     },
     {
       id: 7,
@@ -105,7 +86,7 @@ housingLocationList: HousingLocation[] = [
       photo: `${this.baseUrl}/r-architecture-GGupkreKwxA-unsplash.jpg`,
       availableUnits: 2,
       wifi: true,
-      laundry: true
+      laundry: true,
     },
     {
       id: 8,
@@ -115,7 +96,7 @@ housingLocationList: HousingLocation[] = [
       photo: `${this.baseUrl}/saru-robert-9rP3mxf8qWI-unsplash.jpg`,
       availableUnits: 10,
       wifi: false,
-      laundry: false
+      laundry: false,
     },
     {
       id: 9,
@@ -125,7 +106,15 @@ housingLocationList: HousingLocation[] = [
       photo: `${this.baseUrl}/webaliser-_TPTXZd9mOo-unsplash.jpg`,
       availableUnits: 6,
       wifi: true,
-      laundry: true
-    }
+      laundry: true,
+    },
   ];
+
+  getAllHousingLocation(): HousingLocation[] {
+    return this.housingLocationList;
+  }
+
+  getHousingLocationById(id: number): HousingLocation | undefined {
+    return this.housingLocationList.find((housing) => housing.id === id);
+  }
 }
